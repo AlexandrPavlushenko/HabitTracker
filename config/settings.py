@@ -14,7 +14,6 @@ DEBUG = True if os.getenv("DEBUG") == "True" else False
 
 ALLOWED_HOSTS = ["*"]
 
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -26,6 +25,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "corsheaders",
     "django_celery_beat",
+    "drf_spectacular",
     "users",
     "habits",
 ]
@@ -102,17 +102,14 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:8000"] # Заменить на адрес фронтенд-сервера
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000"]  # Заменить на адрес фронтенд-сервера
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": "rest_framework_simplejwt.authentication.JWTAuthentication",
+    "DEFAULT_PERMISSION_CLASSES": "rest_framework.permissions.IsAuthenticated",
 }
 
 SIMPLE_JWT = {
@@ -120,34 +117,26 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-CACHE_ENABLED = True
-
-if CACHE_ENABLED:
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://localhost:6379/1",
-        }
-    }
-
-# CELERY_BEAT_SCHEDULE = {
-#     "task-name": {
-#         "task": "habits.my_task",
-#         "schedule": timedelta(days=1),  # Расписание выполнения задачи
-#     },
-# }
+CELERY_BEAT_SCHEDULE = {
+    "send_reminder": {
+        "task": "habits.tasks.send_reminder",
+        "schedule": timedelta(hours=12),  # Расписание выполнения задачи
+    },
+}
 
 # URL-адрес брокера сообщений
-CELERY_BROKER_URL = "redis://localhost:6379/1"
+CELERY_BROKER_URL = "redis://localhost:6379/0"
 
 # URL-адрес брокера результатов
-CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
 # Часовой пояс для работы Celery
-CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TIMEZONE = TIME_ZONE
 
 # Флаг отслеживания выполнения задач
 CELERY_TASK_TRACK_STARTED = True
 
 # Максимальное время на выполнение задачи
 # CELERY_TASK_TIME_LIMIT = 30 * 60
+
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
