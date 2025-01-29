@@ -1,5 +1,6 @@
 from django.db import models
 from rest_framework.exceptions import ValidationError
+
 from config import settings
 
 
@@ -13,7 +14,7 @@ class Habit(models.Model):
     location = models.CharField(
         max_length=255, null=True, blank=True, verbose_name="Место выполнения"
     )
-    time = models.DateTimeField(verbose_name="Время выполнения")
+    time = models.TimeField(verbose_name="Время выполнения")
     action = models.CharField(max_length=255, verbose_name="Действие")
     is_pleasant = models.BooleanField(
         default=False, verbose_name="Признак приятной привычки"
@@ -24,7 +25,6 @@ class Habit(models.Model):
         null=True,
         blank=True,
         limit_choices_to={"is_pleasant": True},
-        related_name="habits",
         verbose_name="Связанная привычка",
     )
     frequency = models.PositiveIntegerField(default=1, verbose_name="Периодичность")
@@ -33,6 +33,9 @@ class Habit(models.Model):
     )
     time_to_complete = models.PositiveIntegerField(verbose_name="Время на выполнение")
     is_public = models.BooleanField(default=True, verbose_name="Признак публичности")
+
+    def __str__(self):
+        return self.action
 
     def clean(self):
         if self.reward and self.related_habit:

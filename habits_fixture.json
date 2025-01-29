@@ -1,0 +1,146 @@
+[
+{
+    "model": "habits.habit",
+    "pk": 1,
+    "fields": {
+        "owner": 2,
+        "location": "Дом",
+        "time": "15:00:00",
+        "action": "Чтение книги",
+        "is_pleasant": true,
+        "related_habit": null,
+        "frequency": 7,
+        "reward": null,
+        "time_to_complete": 30,
+        "is_public": true
+    }
+},
+{
+    "model": "habits.habit",
+    "pk": 34,
+    "fields": {
+        "owner": 35,
+        "location": "Кафе",
+        "time": "08:00:00",
+        "action": "Утренний кофе",
+        "is_pleasant": true,
+        "related_habit": null,
+        "frequency": 1,
+        "reward": null,
+        "time_to_complete": 10,
+        "is_public": true
+    }
+},
+{
+    "model": "habits.habit",
+    "pk": 35,
+    "fields": {
+        "owner": 36,
+        "location": "Парк",
+        "time": "07:00:00",
+        "action": "Прогулка на свежем воздухе",
+        "is_pleasant": true,
+        "related_habit": null,
+        "frequency": 2,
+        "reward": null,
+        "time_to_complete": 45,
+        "is_public": true
+    }
+},
+{
+    "model": "habits.habit",
+    "pk": 36,
+    "fields": {
+        "owner": 36,
+        "location": "Фитнес зал",
+        "time": "18:00:00",
+        "action": "Тренировка в зале",
+        "is_pleasant": false,
+        "related_habit": null,
+        "frequency": 3,
+        "reward": "Протеиновый коктейль",
+        "time_to_complete": 60,
+        "is_public": true
+    }
+},
+{
+    "model": "habits.habit",
+    "pk": 67,
+    "fields": {
+        "owner": 37,
+        "location": "Дом",
+        "time": "12:00:00",
+        "action": "Медитация",
+        "is_pleasant": true,
+        "related_habit": 1,
+        "frequency": 3,
+        "reward": null,
+        "time_to_complete": 15,
+        "is_public": true
+    }
+},
+{
+    "model": "habits.habit",
+    "pk": 68,
+    "fields": {
+        "owner": 68,
+        "location": "Офис",
+        "time": "13:00:00",
+        "action": "Краткий отдых",
+        "is_pleasant": true,
+        "related_habit": 1,
+        "frequency": 1,
+        "reward": null,
+        "time_to_complete": 20,
+        "is_public": true
+    }
+},
+{
+    "model": "habits.habit",
+    "pk": 69,
+    "fields": {
+        "owner": 2,
+        "location": "Спорт площадка",
+        "time": "17:00:00",
+        "action": "Игра в футбол",
+        "is_pleasant": false,
+        "related_habit": null,
+        "frequency": 2,
+        "reward": "Булочка",
+        "time_to_complete": 90,
+        "is_public": true
+    }
+},
+{
+    "model": "habits.habit",
+    "pk": 102,
+    "fields": {
+        "owner": 35,
+        "location": "Кинотеатр",
+        "time": "19:30:00",
+        "action": "Просмотр фильма",
+        "is_pleasant": true,
+        "related_habit": null,
+        "frequency": 5,
+        "reward": "Попкорн",
+        "time_to_complete": 120,
+        "is_public": true
+    }
+},
+{
+    "model": "habits.habit",
+    "pk": 103,
+    "fields": {
+        "owner": 68,
+        "location": "Клуб",
+        "time": "22:00:00",
+        "action": "Время с друзьями",
+        "is_pleasant": true,
+        "related_habit": null,
+        "frequency": 7,
+        "reward": "Напитки",
+        "time_to_complete": 90,
+        "is_public": true
+    }
+}
+]

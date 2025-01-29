@@ -1,36 +1,32 @@
 from rest_framework import generics
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.permissions import IsAuthenticated
+
 from .models import Habit
-from .serializers import HabitSerializer
 from .paginators import HabitListPagination
+from .serializers import HabitSerializer
 
 
 class HabitListView(generics.ListAPIView):
     serializer_class = HabitSerializer
-    permission_classes = [IsAuthenticated]
     pagination_class = HabitListPagination
 
     def get_queryset(self):
-        return Habit.objects.filter(owner=self.request.user)
+        return Habit.objects.filter(owner=self.request.user).order_by("action")
 
 
 class PublicHabitListView(generics.ListAPIView):
     serializer_class = HabitSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Habit.objects.filter(is_public=True)
+        return Habit.objects.filter(is_public=True).order_by("action")
 
 
 class HabitCreateView(generics.CreateAPIView):
     serializer_class = HabitSerializer
-    permission_classes = [IsAuthenticated]
 
 
 class HabitUpdateView(generics.UpdateAPIView):
     serializer_class = HabitSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         # Получаем привычки, принадлежащие текущему пользователю
@@ -50,7 +46,6 @@ class HabitUpdateView(generics.UpdateAPIView):
 
 class HabitDeleteView(generics.DestroyAPIView):
     serializer_class = HabitSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         # Получаем привычки, принадлежащие текущему пользователю

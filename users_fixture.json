@@ -1,0 +1,128 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$ZG381OKB7MLC5kpVFaEYmX$pqTL2j61TiNfaKmQURCjbg99wLnOgYGlc7vdEL8JqOs=",
+        "last_login": "2025-01-28T16:05:53.269Z",
+        "is_superuser": true,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-01-28T16:05:32.273Z",
+        "username": "admin",
+        "email": "admin@example.com",
+        "phone": null,
+        "avatar": "",
+        "telegram_chat_id": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "12345",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-28T16:06:17Z",
+        "username": "Александр",
+        "email": "aleksandr@example.com",
+        "phone": null,
+        "avatar": "",
+        "telegram_chat_id": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 35,
+    "fields": {
+        "password": "12345",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-28T16:07:41Z",
+        "username": "Сергей",
+        "email": "sergey@example.com",
+        "phone": null,
+        "avatar": "",
+        "telegram_chat_id": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 36,
+    "fields": {
+        "password": "12345",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-28T16:08:55Z",
+        "username": "Иван",
+        "email": "ivan@example.com",
+        "phone": null,
+        "avatar": "",
+        "telegram_chat_id": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 37,
+    "fields": {
+        "password": "12345",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-28T16:09:58Z",
+        "username": "Мария",
+        "email": "maria@example.com",
+        "phone": null,
+        "avatar": "",
+        "telegram_chat_id": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 68,
+    "fields": {
+        "password": "12345",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-28T16:10:43Z",
+        "username": "Наталья",
+        "email": "natalya@example.com",
+        "phone": null,
+        "avatar": "",
+        "telegram_chat_id": null,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
