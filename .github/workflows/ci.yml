@@ -30,7 +30,7 @@ jobs:
             ${{ runner.os }}-poetry-lint-
 
       - name: Install lint dependencies
-        run: poetry install --only lint --no-interaction --no-root
+        run: poetry install --only linter --no-interaction --no-root
 
       - name: Run flake8
         run: poetry run flake8 .
