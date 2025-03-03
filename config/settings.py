@@ -12,6 +12,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
+ENV = os.getenv("ENV", "local")
+
 ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
@@ -128,11 +130,13 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-# URL-адрес брокера сообщений
-CELERY_BROKER_URL = "redis://localhost:6379/0"
-
-# URL-адрес брокера результатов
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+# Устанавливаем URL для Redis в зависимости от значения ENV
+if ENV == "docker":
+    CELERY_BROKER_URL = "redis://redis:6379/0"
+    CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+else:  # локальная среда
+    CELERY_BROKER_URL = "redis://localhost:6379/0"
+    CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = TIME_ZONE
@@ -141,6 +145,6 @@ CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 
 # Максимальное время на выполнение задачи
-# CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
