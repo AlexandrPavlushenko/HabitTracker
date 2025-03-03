@@ -69,7 +69,9 @@ jobs:
         env:
           SECRET_KEY: 'ci-test-secret-key-123!@#'
           CI: 'True'
-        run: poetry run python manage.py test
+        run: |
+          poetry run python manage.py migrate --noinput
+          poetry run python manage.py test
 
   build:
     needs: test
