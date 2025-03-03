@@ -67,8 +67,7 @@ jobs:
 
       - name: Run tests
         env:
-          SECRET_KEY: 'ci-test-secret-key-123!@#'  # Временный ключ для тестов
-          DJANGO_SETTINGS_MODULE: config.settings
+          DJANGO_SETTINGS_MODULE: config.settings_ci
         run: poetry run python manage.py test
 
   build:
