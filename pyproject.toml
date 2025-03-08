@@ -1,7 +1,7 @@
 [project]
 name = "HabitTracker"
 version = "1.0.0"
-description = ""
+description = "Course project #5"
 authors = [
     {name = "A.S.Pavlushenko",email = "a.s.pavlushenko@gmail.com"}
 ]
@@ -20,18 +20,26 @@ dependencies = [
     "redis (>=5.2.1,<6.0.0)",
     "psycopg2-binary (>=2.9.10,<3.0.0)",
     "python-dotenv (>=1.0.1,<2.0.0)",
-    "django-celery-beat (>=2.7.0,<3.0.0)"
+    "django-celery-beat (>=2.7.0,<3.0.0)",
+    "pillow (>=11.1.0,<12.0.0)",
+    "requests (>=2.32.3,<3.0.0)",
 ]
-
-[build-system]
-requires = [
-    "poetry-core>=2.0.0,<3.0.0"
-]
-build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.group.linter.dependencies]
 black = "^24.10.0"
 flake8 = "^7.1.1"
 isort = "^5.13.2"
 
+[tool.poetry.group.test.dependencies]
+coverage = "^7.6.10"
+
+[tool.poetry.group.deploy.dependencies]
+gunicorn = "^23.0.0"
+nginx-install = "^0.1.11"
+
+[build-system]
+requires = [
+    "poetry-core>=2.0.0,<3.0.0"
+]
+build-backend = "poetry.core.masonry.api"
 

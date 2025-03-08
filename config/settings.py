@@ -1,8 +1,8 @@
 import os
 from datetime import timedelta
+from pathlib import Path
 
 from dotenv import load_dotenv
-from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -12,8 +12,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
-ALLOWED_HOSTS = ["*"]
+ENV = os.getenv("ENV", "local")
 
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "corsheaders",
     "django_celery_beat",
+    "drf_spectacular",
     "users",
     "habits",
 ]
@@ -72,6 +74,14 @@ DATABASES = {
     }
 }
 
+if os.getenv("CI", "False") == "True":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "test_db.sqlite3",
+        }
+    }
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -102,17 +112,18 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:8000"] # Заменить на адрес фронтенд-сервера
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000"]  # Заменить на адрес фронтенд-сервера
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_AUTHENTICATION_CLASSES": [
+    "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
     ],
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
 SIMPLE_JWT = {
@@ -120,34 +131,28 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-CACHE_ENABLED = True
+CELERY_BEAT_SCHEDULE = {
+    "send_reminder": {
+        "task": "habits.tasks.send_reminder",
+        "schedule": timedelta(hours=12),  # Расписание выполнения задачи
+    },
+}
 
-if CACHE_ENABLED:
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://localhost:6379/1",
-        }
-    }
-
-# CELERY_BEAT_SCHEDULE = {
-#     "task-name": {
-#         "task": "habits.my_task",
-#         "schedule": timedelta(days=1),  # Расписание выполнения задачи
-#     },
-# }
-
-# URL-адрес брокера сообщений
-CELERY_BROKER_URL = "redis://localhost:6379/1"
-
-# URL-адрес брокера результатов
-CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
+# Устанавливаем URL для Redis в зависимости от значения ENV
+if ENV == "docker":
+    CELERY_BROKER_URL = "redis://redis:6379/0"
+    CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+else:  # локальная среда
+    CELERY_BROKER_URL = "redis://localhost:6379/0"
+    CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
 # Часовой пояс для работы Celery
-CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TIMEZONE = TIME_ZONE
 
 # Флаг отслеживания выполнения задач
 CELERY_TASK_TRACK_STARTED = True
 
 # Максимальное время на выполнение задачи
-# CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
